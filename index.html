@@ -1,0 +1,1529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Imagination Garden — Vegetables become anything but themselves</title>
+
+  <style>
+    @font-face{
+      font-family:"Absans";
+      src: url("./fonts/Absans-Variable.woff2") format("woff2");
+      font-weight:100 900;
+      font-style:normal;
+      font-display:swap;
+    }
+
+    :root{
+      --ink:#0f1020; 
+      --paper:#ffffff;
+
+      /* Tomato theme */
+      --tomato-bg:#fff6f4; 
+      --tomato-red:#e34a3d; 
+      --leaf:#1fb66a;
+
+      /* Carrot theme */
+      --carrot-bg:#e7f6ff; 
+      --carrot-orange:#f58a2e; 
+      --carrot-leaf:#23b37a;
+      --bubble-blue:#47A7FF;
+
+      /* Pea theme (bluish) */
+      --pea-bg:#e3f2ff; 
+      --pea-green:#47b65a; 
+      --pea-dark:#2b8b46; 
+      --sonar:#52d29a;
+
+      /* Egg theme (space) */
+      --egg-bg:#181a2a; 
+      --yolk:#ffd34d; 
+      --shell:#ffffff; 
+      --starlight:#b9c3ff; 
+      --ring:#f1f1f1;
+    }
+
+    *{box-sizing:border-box}
+    html,body{
+      height:100%;
+      margin:0;
+    }
+    body{
+      font-family:"Absans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:var(--paper); 
+      color:var(--ink);
+      display:flex; 
+      flex-direction:column;
+      min-height:100vh;
+    }
+
+    header{
+      padding:16px 20px; 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between;
+      position: relative
+    }
+   /* 제목 기본 스타일 */
+.brand {
+  font-family: "Absans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.2 rem;
+  letter-spacing: 0.16em;
+  font-weight: 400;
+}
+
+/* 글자 하나씩 삐뚤삐뚤 */
+.wobblyTitle {
+  display: inline-block;
+  position: relative;
+}
+
+.wobblyTitle span {
+  display: inline-block;
+  position: relative;
+}
+
+.wobblyTitle .space {
+  width: 1.4em; /* imagination / garden 사이 간격 */
+}
+
+/* imagination */
+.wobblyTitle span:nth-child(1)  { transform: translateY(-2px) rotate(-4deg); }
+.wobblyTitle span:nth-child(2)  { transform: translateY(3px)  rotate(2deg); }
+.wobblyTitle span:nth-child(3)  { transform: translateY(0px)  rotate(-3deg); }
+.wobblyTitle span:nth-child(4)  { transform: translateY(-4px) rotate(3deg); }
+.wobblyTitle span:nth-child(5)  { transform: translateY(2px)  rotate(-2deg); }
+.wobblyTitle span:nth-child(6)  { transform: translateY(-1px) rotate(2deg); }
+.wobblyTitle span:nth-child(7)  { transform: translateY(4px)  rotate(-4deg); }
+.wobblyTitle span:nth-child(8)  { transform: translateY(-3px) rotate(3deg); }
+.wobblyTitle span:nth-child(9)  { transform: translateY(1px)  rotate(-2deg); }
+.wobblyTitle span:nth-child(10) { transform: translateY(-2px) rotate(1deg); }
+.wobblyTitle span:nth-child(11) { transform: translateY(3px)  rotate(-3deg); }
+
+/* 12번째는 .space라서 스킵 */
+
+/* garden */
+.wobblyTitle span:nth-child(13) { transform: translateY(-3px) rotate(-4deg); }
+.wobblyTitle span:nth-child(14) { transform: translateY(2px)  rotate(2deg); }
+.wobblyTitle span:nth-child(15) { transform: translateY(-1px) rotate(-2deg); }
+.wobblyTitle span:nth-child(16) { transform: translateY(3px)  rotate(3deg); }
+.wobblyTitle span:nth-child(17) { transform: translateY(-2px) rotate(-1deg); }
+.wobblyTitle span:nth-child(18) { transform: translateY(2px)  rotate(2deg); }
+
+  
+   /* 오른쪽 위에 가로로 눕힌 탭들 */
+.nav {
+  position: absolute;     /* header 안에서 오른쪽 위에 붙이기 */
+  top: 20px;
+  right: 40px;
+
+  display: flex;
+  flex-direction: row;    /* 세로 → 가로 */
+  gap: 8px;
+  flex-wrap: wrap;        /* 화면 좁아지면 두 줄로 자연스럽게 */
+  z-index: 20;
+}
+
+/* chip 기본 margin 있으면 제거 */
+.nav .chip {
+  margin: 0;
+}
+
+    .chip{
+      border:2px solid var(--ink); 
+      border-radius:999px; 
+      padding:8px 12px; 
+      cursor:pointer; 
+      user-select:none;
+    }
+    .chip.primary{
+      background:var(--ink); 
+      color:var(--paper);
+    }
+
+    /* ---------- HOME ---------- */
+    main {
+  max-width: 1080px;
+  margin: 0 auto 80px;   /* 위쪽 여백을 0으로 */
+  padding-top: 40px;     /* 제목과 내용 사이 간격 (너무 멀면 24px로 줄여도 됨) */
+}
+
+
+/* 홈 인트로 블록이 따로 있으면 */
+.homeIntro {
+  margin-top: 12px;      /* 너무 크면 12~20px 정도로 줄이기 */
+}
+
+
+    #home{
+      display:block;
+      padding:24px 20px 70px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+    }
+
+    .lede{
+      margin:0 0 8px 0; 
+      font-weight:700; 
+      font-size:20px;
+      text-align:center;
+    }
+    .sublede{
+      margin:0 0 18px 0; 
+      opacity:.75; 
+      font-weight:400;
+      text-align:center;
+    }
+
+    .introGrid{
+      display:grid; 
+      gap:18px; 
+      grid-template-columns:repeat(3,minmax(160px,220px));
+      justify-content:center;
+      margin-top:8px;
+    }
+    @media (max-width:900px){
+      .introGrid{
+        grid-template-columns:repeat(2,minmax(150px,1fr));
+      }
+    }
+    @media (max-width:600px){
+      .introGrid{
+        grid-template-columns:1fr;
+      }
+    }
+
+    .seed{
+      position:relative; 
+      border:2px solid var(--ink); 
+      border-radius:18px;
+      padding:16px; 
+      aspect-ratio:3/4; 
+      cursor:pointer; 
+      overflow:hidden;
+      transition:.18s transform;
+    }
+    .seed:hover{
+      transform:translateY(-3px);
+    }
+    .seed h3{
+      margin:.2rem 0 .4rem 0; 
+      font-size:18px;
+    }
+    .badge{
+      position:absolute; 
+      top:10px; 
+      right:10px; 
+      font-size:11px; 
+      border:1.5px dashed var(--ink); 
+      border-radius:999px; 
+      padding:3px 8px; 
+      background:#fff8;
+    }
+    .s1{background:#ffe8e3}
+    .s2{background:#e7f6ff}
+    .s3{background:#eefbf1}
+    .s4{background:#181a2a; color:white}
+    .seed svg{
+      width:100%; 
+      height:auto;
+    }
+
+    /* ---------- SECTION LAYOUT ---------- */
+    .section{
+      display:none; 
+      padding:10px 20px 80px;
+    }
+    .section.active{
+      display:grid; 
+      grid-template-columns:320px 1fr; 
+      gap:18px;
+    }
+    @media (max-width:900px){
+      .section.active{grid-template-columns:1fr}
+    }
+
+    .panel{
+      border:2px solid var(--ink); 
+      border-radius:18px; 
+      padding:18px;
+      display:flex; 
+      flex-direction:column; 
+      gap:12px;
+      background:var(--paper);
+    }
+    .panel h2{
+      margin:0 0 6px 0; 
+      font-size:18px; 
+      font-weight:800;
+    }
+
+    .pair{
+      font-weight:650; 
+      font-size:32px; 
+      line-height:1.15; 
+      letter-spacing:.1px;
+    }
+    .pair .muted{
+      opacity:.55; 
+      font-weight:560;
+    }
+    .tip{
+      font-size:12px; 
+      opacity:.75; 
+      font-weight:350;
+    }
+
+    .canvasWrap{
+      position:relative; 
+      border:2px solid var(--ink); 
+      border-radius:18px; 
+      overflow:hidden;
+    }
+    .note{
+      position:absolute; 
+      left:12px; 
+      top:12px;
+      background:rgba(255,255,255,.78); 
+      border:1.5px solid var(--ink);
+      padding:8px 10px; 
+      border-radius:10px; 
+      font-size:12px; 
+      backdrop-filter:blur(6px);
+    }
+    canvas{
+      display:block;
+    }
+
+    footer {
+  position: static;      /* 고정 없애기 */
+  margin: 40px auto 24px;/* 카드 아래에 여유를 두고 배치 */
+  padding: 4px 24px;
+  font-size: 0.75rem;
+  max-width: 1080px;
+}
+
+
+    /* theme backgrounds per section */
+    #tomatoSection .canvasWrap{ background:#050816; }
+    #carrotSection .canvasWrap{ background:var(--carrot-bg); }
+    #peaSection    .canvasWrap{ background:var(--pea-bg); }
+    #eggSection    .canvasWrap{ background:var(--egg-bg); color:white; }
+
+    /* egg panel 글씨 보이게 */
+    #eggSection .panel{
+      border-color:#e9ecff;
+      color:white;
+      background:var(--egg-bg);
+    }
+    #eggSection .panel .pair .muted{
+      color:#d7dbff;
+    }
+
+    /* ====== WORD MASK (only the noun) ====== */
+    .wordRow{
+      display:flex; 
+      align-items:center; 
+      gap:10px; 
+      flex-wrap:wrap;
+    }
+    .mask{
+      display:inline-block; 
+      min-width:7ch;
+      border-bottom:3px solid currentColor;
+      line-height:0.9; 
+      transform:translateY(3px);
+    }
+    .wordBtn{
+      border:2px solid var(--ink); 
+      background:var(--paper); 
+      border-radius:999px;
+      padding:6px 10px; 
+      font:inherit; 
+      cursor:pointer; 
+      user-select:none;
+      font-weight:700; 
+      letter-spacing:.2px;
+    }
+    .wordBtn:disabled{
+      opacity:.5; 
+      cursor:default;
+    }
+    .btnRed{
+      background:var(--tomato-red); 
+      color:white; 
+      border-color:var(--ink);
+    }
+    .btnOrange{
+      background:var(--carrot-orange); 
+      color:white; 
+      border-color:var(--ink);
+    }
+    .btnGreen{
+      background:var(--pea-green); 
+      color:white; 
+      border-color:var(--ink);
+    }
+    .btnGold{
+      background:var(--yolk); 
+      color:#2b2100; 
+      border-color:#2b2100;
+    }
+
+    /* pop animation for revealed word */
+    @keyframes popIn{
+      from{opacity:0; transform:translateY(4px)}
+      to{opacity:1; transform:translateY(0)}
+    }
+    .revealWord{
+      animation:popIn .22s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <header>
+      <div class="brand wobblyTitle">
+        <span>I</span>
+        <span>m</span>
+        <span>a</span>
+        <span>g</span>
+        <span>i</span>
+        <span>n</span>
+        <span>a</span>
+        <span>t</span>
+        <span>i</span>
+        <span>o</span>
+        <span>n</span>
+        <span class="space"></span>
+        <span>G</span>
+        <span>a</span>
+        <span>r</span>
+        <span>d</span>
+        <span>e</span>
+        <span>n</span>
+      </div>
+  
+    <nav class="nav">
+      <div class="chip primary" id="nav-home">Home</div>
+      <div class="chip" id="nav-tomato">Tomato</div>
+      <div class="chip" id="nav-carrot">Carrot</div>
+      <div class="chip" id="nav-pea">Pea</div>
+      <div class="chip" id="nav-egg">Egg</div>
+      <div class="chip" id="nav-potato">Potato</div>
+      <div class="chip" id="nav-sausage">Sausage</div>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <main id="home">
+    <p class="lede">Welcome to the Imagination Garden</p>
+    <p class="sublede">Here, vegetables become anything but themselves. Choose a seed to begin.</p>
+    <section class="introGrid">
+      <!-- Tomato -->
+      <div class="seed s1" id="open-tomato">
+        <span class="badge">click</span>
+        <h3>🍅 Tomato</h3>
+        <svg viewBox="0 0 200 160" aria-hidden="true">
+          <ellipse cx="90" cy="85" rx="42" ry="34" fill="#E34A3D"/>
+          <path d="M90 52 c-8 -18 16 -18 8 0z" fill="#2A9E55"/>
+          <path d="M86 52 c-20 -16 20 -16 0 0z" fill="#2FAD63"/>
+      
+        </svg>
+      </div>
+
+      <!-- Carrot -->
+      <div class="seed s2" id="open-carrot">
+        <span class="badge">click</span>
+        <h3>🥕 Carrot</h3>
+        <svg viewBox="0 0 200 160">
+          <path d="M60 40 C40 100, 70 140, 95 150 C120 120, 120 80, 95 40 Z" fill="#F58A2E"/>
+          <rect x="85" y="25" width="8" height="22" fill="#23b37a"/>  <rect x="75" y="25" width="8" height="22" fill="#23b37a"/>  <rect x="65" y="25" width="8" height="22" fill="#23b37a"/>
+        </svg>
+      </div>
+
+      <!-- Pea -->
+      <div class="seed s3" id="open-pea">
+        <span class="badge">click</span>
+        <h3>🫛 Pea</h3>
+        <svg viewBox="0 0 200 160">
+          <ellipse cx="100" cy="80" rx="70" ry="28" fill="#7BCB6B"/>
+          <circle cx="75" cy="80" r="12" fill="#47B65A"/>
+          <circle cx="100" cy="80" r="12" fill="#47B65A"/>
+          <circle cx="125" cy="80" r="12" fill="#47B65A"/>
+        </svg>
+      </div>
+
+      <!-- Egg -->
+      <div class="seed s4" id="open-egg">
+        <span class="badge">click</span>
+        <h3>🥚 Egg</h3>
+        <svg viewBox="0 0 200 160">
+          <rect width="200" height="160" fill="transparent"/>
+          <ellipse cx="100" cy="85" rx="36" ry="48" fill="#fff"/>
+          <circle cx="100" cy="90" r="14" fill="#ffd34d"/>
+        </svg>
+      </div>
+
+      <!-- Potato -->
+      <div class="seed s1" id="open-potato">
+        <span class="badge">click</span>
+        <h3>🥔 Potato</h3>
+        <svg viewBox="0 0 200 160">
+          <ellipse cx="100" cy="85" rx="55" ry="40" fill="#c8a36b"/>
+          <circle cx="80" cy="75" r="6" fill="#a38255"/>
+          <circle cx="120" cy="92" r="7" fill="#a38255"/>
+          <circle cx="95" cy="105" r="5" fill="#a38255"/>
+        </svg>
+      </div>
+
+      <!-- Sausage -->
+      <div class="seed s2" id="open-sausage">
+        <span class="badge">click</span>
+        <h3>🌭 Sausage</h3>
+        <svg viewBox="0 0 200 160">
+          <rect x="40" y="70" width="120" height="40" rx="20" fill="#e06955"/>
+          <rect x="50" y="80" width="100" height="20" rx="10" fill="#f8c27a"/>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+  <!-- TOMATO SECTION -->
+  <section id="tomatoSection" class="section">
+    <div class="panel">
+      <h2>🍅 Tomato Translator</h2>
+      <div class="pair">This is not a <span class="muted">tomato</span>.</div>
+      <div class="wordRow">
+        <div class="pair">
+          This is a 
+          <span id="rocketMask" class="mask"></span>
+          <span id="rocketWord" class="pair revealWord" style="display:none;">rocket</span>.
+        </div>
+        <button id="btnRocket" class="wordBtn btnRed">click</button>
+      </div>
+      <div class="tip">Drag to draw fire · Space to launch/pause · Double-click to reset</div>
+    </div>
+    <div class="canvasWrap">
+      <div class="note">Drag to make fire ✦ Press Space to launch/pause ✦ Double-click to reset</div>
+      <div id="p5-tomato"></div>
+    </div>
+  </section>
+
+  <!-- CARROT SECTION -->
+  <section id="carrotSection" class="section">
+    <div class="panel">
+      <h2>🥕 Carrot Translator</h2>
+      <div class="pair">This is not a <span class="muted">carrot</span>.</div>
+      <div class="wordRow">
+        <div class="pair">
+          This is a 
+          <span id="trumpetMask" class="mask"></span>
+          <span id="trumpetWord" class="pair revealWord" style="display:none;">trumpetfish</span>.
+        </div>
+        <button id="btnTrumpet" class="wordBtn btnOrange">click</button>
+      </div>
+      <div class="tip">Click/Drag to make bubbles · Space to swim/pause · Double-click to reset</div>
+    </div>
+    <div class="canvasWrap">
+      <div class="note">Click or drag to make bubbles ✦ Press Space to swim/pause ✦ Double-click to reset</div>
+      <div id="p5-carrot"></div>
+    </div>
+  </section>
+
+  <!-- PEA SECTION -->
+  <section id="peaSection" class="section">
+    <div class="panel">
+      <h2>🫛 Pea Translator</h2>
+      <div class="pair">This is not a <span class="muted">pea</span>.</div>
+      <div class="wordRow">
+        <div class="pair">
+          This is a 
+          <span id="subMask" class="mask"></span>
+          <span id="subWord" class="pair revealWord" style="display:none;">submarine</span>.
+        </div>
+        <button id="btnSub" class="wordBtn btnGreen">click</button>
+      </div>
+      <div class="tip">Click/Drag to send sonar waves · Space to drift/pause · Double-click to reset </div>
+    </div>
+    <div class="canvasWrap">
+      <div class="note">Click or drag to send sonar waves ✦ Space to drift/pause ✦ Double-click to reset</div>
+      <div id="p5-pea"></div>
+    </div>
+  </section>
+
+  <!-- EGG SECTION -->
+  <section id="eggSection" class="section">
+    <div class="panel">
+      <h2>🥚 Egg Translator</h2>
+      <div class="pair">This is not an <span class="muted">egg</span>.</div>
+      <div class="wordRow">
+        <div class="pair">
+          This is  
+          <span id="jupiterMask" class="mask"></span>
+          <span id="jupiterWord" class="pair revealWord" style="display:none;">Jupiter</span>.
+        </div>
+        <button id="btnJupiter" class="wordBtn btnGold">click</button>
+      </div>
+      <div class="tip">Click to add stars · Space to spin/pause · Double-click to reset</div>
+    </div>
+    <div class="canvasWrap">
+      <div class="note">Click to add stars ✦ Space to spin/pause ✦ Double-click to reset</div>
+      <div id="p5-egg"></div>
+    </div>
+  </section>
+
+  <!-- POTATO SECTION -->
+  <section id="potatoSection" class="section">
+    <div class="panel">
+      <h2>🥔 Potato Translator</h2>
+      <div class="pair">This is not a <span class="muted">potato</span>.</div>
+      <div class="wordRow">
+        <div class="pair">
+          This is a 
+          <span id="moonrockMask" class="mask"></span>
+          <span id="moonrockWord" class="pair revealWord" style="display:none;">Moonrock</span>.
+        </div>
+        <button id="btnMoonrock" class="wordBtn btnOrange">click</button>
+      </div>
+      <div class="tip">Click/Drag to create dust ✦ Space to spin/pause ✦ Double-click to reset</div>
+    </div>
+    <div class="canvasWrap">
+      <div class="note">Click or Drag to create space dust ✦ Space to spin ✦ Double-click to reset</div>
+      <div id="p5-potato"></div>
+    </div>
+  </section>
+
+  <!-- SAUSAGE SECTION -->
+  <section id="sausageSection" class="section">
+    <div class="panel">
+      <h2>🌭 Sausage Translator</h2>
+      <div class="pair">This is not a <span class="muted">sausage</span>.</div>
+      <div class="wordRow">
+        <div class="pair">
+          This is a 
+          <span id="balloonMask" class="mask"></span>
+          <span id="balloonWord" class="pair revealWord" style="display:none;">hot air balloon</span>.
+        </div>
+        
+        <button id="btnBalloon" class="wordBtn btnRed">click</button>
+      </div>
+      <div class="tip">Click to inflate ✦ Drag to stretch ✦ Space to float ✦ Double-click reset</div>
+
+    </div>
+    <div class="canvasWrap">
+      <div class="note">Click to inflate ✦ Drag to stretch ✦ Space to wobble ✦ Double-click to reset</div>
+      <div id="p5-sausage"></div>
+    </div>
+  </section>
+
+  <footer>© Imagination Garden — vegetables become anything but themselves.</footer>
+
+  <!-- p5.js -->
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.min.js"></script>
+
+  <script>
+    // --------- Simple router ----------
+    const homeView = document.getElementById('home');
+    const views = {
+      tomato:  document.getElementById('tomatoSection'),
+      carrot:  document.getElementById('carrotSection'),
+      pea:     document.getElementById('peaSection'),
+      egg:     document.getElementById('eggSection'),
+      potato:  document.getElementById('potatoSection'),
+      sausage: document.getElementById('sausageSection'),
+    };
+
+    const nav = {
+      home:    document.getElementById('nav-home'),
+      tomato:  document.getElementById('nav-tomato'),
+      carrot:  document.getElementById('nav-carrot'),
+      pea:     document.getElementById('nav-pea'),
+      egg:     document.getElementById('nav-egg'),
+      potato:  document.getElementById('nav-potato'),
+      sausage: document.getElementById('nav-sausage'),
+    };
+
+    const open = {
+      tomato:  document.getElementById('open-tomato'),
+      carrot:  document.getElementById('open-carrot'),
+      pea:     document.getElementById('open-pea'),
+      egg:     document.getElementById('open-egg'),
+      potato:  document.getElementById('open-potato'),
+      sausage: document.getElementById('open-sausage'),
+    };
+
+    let sketches = {
+      tomato:null, carrot:null, pea:null, egg:null, potato:null, sausage:null
+    };
+
+    function showHome(){
+      homeView.style.display='block';
+      Object.values(views).forEach(v=>v.classList.remove('active'));
+    }
+
+    function showSection(key){
+      homeView.style.display='none';
+      Object.entries(views).forEach(([k,v])=>{
+        v.classList.toggle('active', k===key);
+      });
+      resetWords(key);
+      if(!sketches[key]){
+        const map = {
+          tomato:createTomatoSketch,
+          carrot:createCarrotSketch,
+          pea:createPeaSketch,
+          egg:createEggSketch,
+          potato:createPotatoSketch,
+          sausage:createSausageSketch
+        };
+        if(map[key]){
+          sketches[key] = map[key]();
+        }
+      }
+    }
+
+    if(nav.home) nav.home.addEventListener('click', showHome);
+    ['tomato','carrot','pea','egg','potato','sausage'].forEach(k=>{
+      if(nav[k])   nav[k].addEventListener('click', ()=>showSection(k));
+      if(open[k])  open[k].addEventListener('click', ()=>showSection(k));
+    });
+
+    showHome();
+
+    // ===== Word reveal logic =====
+    const rocketMask   = document.getElementById('rocketMask'),
+          rocketWord   = document.getElementById('rocketWord'),
+          btnRocket    = document.getElementById('btnRocket');
+
+    const trumpetMask  = document.getElementById('trumpetMask'),
+          trumpetWord  = document.getElementById('trumpetWord'),
+          btnTrumpet   = document.getElementById('btnTrumpet');
+
+    const subMask      = document.getElementById('subMask'),
+          subWord      = document.getElementById('subWord'),
+          btnSub       = document.getElementById('btnSub');
+
+    const jupiterMask  = document.getElementById('jupiterMask'),
+          jupiterWord  = document.getElementById('jupiterWord'),
+          btnJupiter   = document.getElementById('btnJupiter');
+
+    const moonrockMask    = document.getElementById('moonrockMask'),
+          moonrockWord    = document.getElementById('moonrockWord'),
+          btnMoonrock    = document.getElementById('btnMoonrock');
+
+    const balloonMask  = document.getElementById('balloonMask'),
+          balloonWord  = document.getElementById('balloonWord'),
+          btnBalloon   = document.getElementById('btnBalloon');
+
+    function resetWord(mask, word, btn){
+      if(!mask || !word || !btn) return;
+      word.style.display='none';
+      word.classList.remove('revealWord');
+      mask.style.display='inline-block';
+      btn.disabled = false;
+    }
+
+    function resetWords(key){
+      if(key==='tomato' || !key)  resetWord(rocketMask,   rocketWord,   btnRocket);
+      if(key==='carrot' || !key)  resetWord(trumpetMask,  trumpetWord,  btnTrumpet);
+      if(key==='pea'    || !key)  resetWord(subMask,      subWord,      btnSub);
+      if(key==='egg'    || !key)  resetWord(jupiterMask,  jupiterWord,  btnJupiter);
+      if(key==='potato' || !key)  resetWord(moonrockMask,    moonrockWord,    btnMoonrock);
+      if(key==='sausage'|| !key)  resetWord(balloonMask,  balloonWord,  btnBalloon);
+    }
+
+    if(btnRocket){
+      btnRocket.addEventListener('click', ()=>{
+        rocketMask.style.display='none';
+        rocketWord.style.display='inline';
+        rocketWord.classList.add('revealWord');
+        btnRocket.disabled = true;
+      });
+    }
+    if(btnTrumpet){
+      btnTrumpet.addEventListener('click', ()=>{
+        trumpetMask.style.display='none';
+        trumpetWord.style.display='inline';
+        trumpetWord.classList.add('revealWord');
+        btnTrumpet.disabled = true;
+      });
+    }
+    if(btnSub){
+      btnSub.addEventListener('click', ()=>{
+        subMask.style.display='none';
+        subWord.style.display='inline';
+        subWord.classList.add('revealWord');
+        btnSub.disabled = true;
+      });
+    }
+    if(btnJupiter){
+      btnJupiter.addEventListener('click', ()=>{
+        jupiterMask.style.display='none';
+        jupiterWord.style.display='inline';
+        jupiterWord.classList.add('revealWord');
+        btnJupiter.disabled = true;
+      });
+    }
+    if(btnMoonrock){
+      btnMoonrock.addEventListener('click', ()=>{
+        moonrockMask.style.display='none';
+       moonrockWord.style.display='inline';
+        moonrockWord.classList.add('revealWord');
+        btnMoonrock.disabled = true;
+      });
+    }
+    if(btnBalloon){
+      btnBalloon.addEventListener('click', ()=>{
+        balloonMask.style.display='none';
+        balloonWord.style.display='inline';
+        balloonWord.classList.add('revealWord');
+        btnBalloon.disabled = true;
+      });
+    }
+
+ // --------- p5: Tomato → Rocket (space background) ----------
+function createTomatoSketch(){
+  const SPACE = "#050816";  // 진한 우주색
+  const RED   = getComputedStyle(document.documentElement).getPropertyValue('--tomato-red').trim() || "#e34a3d";
+  const GREEN = getComputedStyle(document.documentElement).getPropertyValue('--leaf').trim() || "#1fb66a";
+  const INK   = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || "#0f1020";
+
+  return new p5(p=>{
+    let launching = false;
+    let rocketY;
+    let sparks = [];
+    let stars = [];
+
+    p.setup = () => {
+      const holder = document.getElementById('p5-tomato');
+      const W = holder.clientWidth || 700;
+      const H = Math.max(420, window.innerHeight * 0.6);
+      const cnv = p.createCanvas(W, H);
+      cnv.parent(holder);
+      p.pixelDensity(1);
+      initScene();
+    };
+
+    p.windowResized = () => {
+      if(!document.body.contains(p.canvas)) return;
+      const holder = document.getElementById('p5-tomato');
+      const W = holder.clientWidth || 700;
+      const H = Math.max(420, window.innerHeight * 0.6);
+      p.resizeCanvas(W, H);
+      initScene();
+    };
+
+    function initScene(){
+      rocketY = p.height * 0.58;
+      sparks = [];
+      stars = [];
+      // 랜덤 별들 만들기
+      const count = 80;
+      for(let i=0;i<count;i++){
+        stars.push({
+          x: p.random(p.width),
+          y: p.random(p.height),
+          r: p.random(1.5,3.5),
+          phase: p.random(1000)
+        });
+      }
+      p.background(SPACE);
+    }
+
+    function drawStars(){
+      for(const s of stars){
+        const tw = (p.sin(p.frameCount*0.03 + s.phase) + 1) / 2; // 0~1
+        const alpha = p.lerp(80, 220, tw);
+        p.noStroke();
+        p.fill(255,255,255,alpha);
+        p.circle(s.x, s.y, s.r);
+      }
+    }
+
+    function tomatoPiece(x,y,s,a){
+      p.push(); 
+      p.translate(x,y); 
+      p.rotate(a);
+      p.noStroke(); 
+      p.fill(RED); 
+      p.ellipse(0,0,64*s,48*s);
+      p.pop();
+    }
+
+    function leafFin(x,y,s){
+      p.push(); 
+      p.translate(x,y);
+      p.noStroke(); 
+      p.fill(GREEN);
+      p.triangle(-6*s,0, 0,-16*s, 6*s,0);
+      p.rect(-2*s,-16*s,4*s,12*s,2*s);
+      p.pop();
+    }
+
+    class Spark{
+      constructor(x,y){
+        this.x=x; this.y=y;
+        this.vx=p.random(-1.2,1.2);
+        this.vy=p.random(2,5);
+        this.life=255;
+        this.sz=p.random(3,7);
+      }
+      step(){ this.x+=this.vx; this.y+=this.vy; this.life-=4; }
+      draw(){
+        p.noStroke(); 
+        p.fill(255,180,90,this.life);
+        p.circle(this.x,this.y,this.sz);
+      }
+      dead(){ return this.life<=0; }
+    }
+
+    p.draw = () => {
+      // 우주 배경 다시 깔기
+      p.noStroke();
+      p.fill(SPACE);
+      p.rect(0,0,p.width,p.height);
+
+      // 별들
+      drawStars();
+
+      const cx = p.width * 0.5;
+      const cy = rocketY;
+
+      // 토마토 조각들 → 로켓 몸통
+      tomatoPiece(cx-38, cy,   1,   -0.4);
+      tomatoPiece(cx+34, cy+2, 0.9,  0.35);
+      tomatoPiece(cx-6,  cy-26,0.8,  0.15);
+      tomatoPiece(cx-2,  cy+30,0.75, -0.15);
+
+      // 위쪽 토마토 + 잎 = 로켓 윗부분
+      p.noStroke(); 
+      p.fill(RED); 
+      p.ellipse(cx, cy-54, 40, 50);
+      leafFin(cx,    cy-78, 1);
+      leafFin(cx-22, cy+36, 0.9);
+      leafFin(cx+24, cy+36, 0.9);
+
+      // 작은 창
+      p.stroke(INK); 
+      p.strokeWeight(2); 
+      p.noFill();
+      p.circle(cx+12, cy-20, 16);
+
+      // 발사 중이면 위로 올라가고 불꽃 나옴
+      if(launching){
+        rocketY -= 1.6;
+        flame(cx, cy+56, 26);
+        if(rocketY < -100) rocketY = p.height+100;
+      }
+
+      // 불꽃 파티클
+      for(let i=sparks.length-1;i>=0;i--){
+        const s=sparks[i]; 
+        s.step(); 
+        s.draw();
+        if(s.dead()) sparks.splice(i,1);
+      }
+    };
+
+    function flame(x,y,spread){
+      for(let i=0;i<4;i++){
+        const sx=p.random(x-spread,x+spread);
+        sparks.push(new Spark(sx,y));
+      }
+      p.noStroke(); 
+      p.fill(255,160,70,150);
+      p.ellipse(x,y+10,40,18);
+    }
+
+    p.mouseDragged = () => {
+      if(onCanvas()){
+        sparks.push(new Spark(p.mouseX,p.mouseY));
+      }
+    };
+
+    p.doubleClicked = () => {
+      initScene();
+    };
+
+    p.keyPressed = () => {
+      if(p.key === ' '){           // 스페이스: 발사/정지
+        launching = !launching;
+      }
+      if(p.keyCode === p.DELETE || p.keyCode === p.BACKSPACE){
+        initScene();
+      }
+    };
+
+    function onCanvas(){
+      return (
+        p.mouseX >= 0 && p.mouseX <= p.width &&
+        p.mouseY >= 0 && p.mouseY <= p.height
+      );
+    }
+  });
+}
+
+
+    // --------- p5: Carrot → Trumpetfish ----------
+    function createCarrotSketch(){
+      const SEA   = getComputedStyle(document.documentElement).getPropertyValue('--carrot-bg').trim() || "#e7f6ff";
+      const ORAN  = getComputedStyle(document.documentElement).getPropertyValue('--carrot-orange').trim() || "#f58a2e";
+      const LEAF  = getComputedStyle(document.documentElement).getPropertyValue('--carrot-leaf').trim() || "#23b37a";
+      const INK   = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || "#0f1020";
+      const BLUE  = getComputedStyle(document.documentElement).getPropertyValue('--bubble-blue').trim() || "#47A7FF";
+
+      return new p5(p=>{
+        let swim=true, t=0, bubbles=[];
+        const fishes = [
+          { x:0.2, y:0.45, a:0.0, s:1.0, seed:p.random(1000) },
+          { x:0.5, y:0.62, a:0.2, s:0.85, seed:p.random(1000) },
+          { x:0.78,y:0.35, a:-0.15,s:0.95, seed:p.random(1000) },
+        ];
+
+        p.setup=()=>{
+          const holder=document.getElementById('p5-carrot');
+          const W=holder.clientWidth||700, H=Math.max(420, window.innerHeight*0.6);
+          const cnv=p.createCanvas(W,H); cnv.parent(holder);
+          p.pixelDensity(1);
+          resetScene();
+        };
+        p.windowResized=()=>{
+          if(!document.body.contains(p.canvas)) return;
+          const holder=document.getElementById('p5-carrot');
+          const W=holder.clientWidth||700, H=Math.max(420, window.innerHeight*0.6);
+          p.resizeCanvas(W,H); resetScene();
+        };
+        function resetScene(){ bubbles.length=0; t=0; p.background(SEA); }
+
+        class Bubble{
+          constructor(x,y){
+            this.x=x; this.y=y;
+            this.vx=p.random(-0.3,0.3);
+            this.vy=p.random(-1.2,-0.6);
+            this.sz=p.random(4,10);
+          }
+          step(){ this.x+=this.vx; this.y+=this.vy; }
+          draw(){
+            p.noFill(); p.stroke(BLUE); p.strokeWeight(1.6);
+            p.circle(this.x,this.y,this.sz);
+          }
+          dead(){ return this.y< -20; }
+        }
+
+        function carrotFish(cx,cy,scale,angle){
+          p.push(); p.translate(cx,cy); p.rotate(angle);
+          p.noStroke(); p.fill(ORAN);
+          p.beginShape();
+          p.vertex(-36*scale, -10*scale);
+          p.bezierVertex(  0, -24*scale,  48*scale, -16*scale, 56*scale, 0);
+          p.bezierVertex( 48*scale,  16*scale,   0,  24*scale, -36*scale, 10*scale);
+          p.endShape(p.CLOSE);
+
+          p.fill(LEAF);
+          p.triangle(50*scale, -6*scale, 66*scale, 0, 50*scale, 6*scale);
+          p.triangle(-24*scale, -12*scale, -12*scale, -24*scale, -8*scale, -4*scale);
+
+          p.fill("#ffffff"); p.circle(22*scale, -4*scale, 9*scale);
+          p.fill(INK); p.circle(22*scale, -4*scale, 4*scale);
+          p.pop();
+        }
+
+        p.draw=()=>{
+          p.noStroke(); p.fill(SEA+'10'); p.rect(0,0,p.width,p.height);
+
+          fishes.forEach((f,i)=>{
+            if(swim){
+              const nx=p.noise(f.seed + t*0.002 + i*2);
+              const ny=p.noise(f.seed + t*0.0025+ i*3);
+              f.x = 0.1 + nx*0.8;
+              f.y = 0.25 + ny*0.55;
+              f.a = p.map(p.noise(f.seed+99+t*0.003),0,1,-0.35,0.35);
+            }
+            carrotFish(f.x*p.width, f.y*p.height, f.s, f.a);
+          });
+
+          for(let i=bubbles.length-1;i>=0;i--){
+            const b=bubbles[i]; b.step(); b.draw();
+            if(b.dead()) bubbles.splice(i,1);
+          }
+          t++;
+        };
+
+        function spawnBubbles(x,y,amt=6){
+          for(let i=0;i<amt;i++)
+            bubbles.push(new Bubble(x+p.random(-6,6), y+p.random(-6,6)));
+        }
+        p.mousePressed = ()=>{ if(onCanvas()) spawnBubbles(p.mouseX,p.mouseY,10); };
+        p.mouseDragged = ()=>{ if(onCanvas()) spawnBubbles(p.mouseX,p.mouseY,4); };
+        p.doubleClicked=()=>{ resetScene(); };
+        p.keyPressed=()=>{
+          if(p.key===' ') swim=!swim;
+          if(p.keyCode===p.DELETE || p.keyCode===p.BACKSPACE){ resetScene(); }
+        };
+        function onCanvas(){
+          return p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height;
+        }
+      });
+    }
+
+// --------- p5: Pea → Submarine (vibrant waves) ----------
+function createPeaSketch(){
+  const WATER     = "#46c3ff";   // 쨍한 물 파랑
+  const WAVE      = "#7fdcff";   // 밝은 물결 스트라이프
+  const SUB_DARK  = "#216b2f";   // 잠수함 몸통
+  const SUB_LIGHT = "#2fa640";   // 창 부분
+  const BUBBLE    = "#ffffffaa"; // 거품
+
+  return new p5(p=>{
+    let t = 0;
+    let animate = true;
+    let bubbles = [];
+
+    p.setup = () => {
+      const holder = document.getElementById('p5-pea');
+      const W = holder.clientWidth || 700;
+      const H = Math.max(420, window.innerHeight * 0.6);
+      const cnv = p.createCanvas(W, H);
+      cnv.parent(holder);
+      p.pixelDensity(1);
+      reset();
+    };
+
+    p.windowResized = () => {
+      if(!document.body.contains(p.canvas)) return;
+      const holder = document.getElementById('p5-pea');
+      const W = holder.clientWidth || 700;
+      const H = Math.max(420, window.innerHeight * 0.6);
+      p.resizeCanvas(W, H);
+      reset();
+    };
+
+    function reset(){
+      t = 0;
+      bubbles = [];
+    }
+
+    // 물결 하나 그리는 함수
+    function drawWaveStripe(yBase, amp, phase){
+      p.noStroke();
+      p.fill(WAVE);
+      p.beginShape();
+      p.vertex(0, p.height);              // 아래쪽 닫기용
+      p.vertex(0, yBase);
+
+      const step = 16;
+      for(let x=0; x<=p.width; x+=step){
+        const ang = (x*0.03) + (t*0.05) + phase;
+        const y = yBase + Math.sin(ang)*amp;
+        p.vertex(x, y);
+      }
+
+      p.vertex(p.width, yBase);
+      p.vertex(p.width, p.height);
+      p.endShape(p.CLOSE);
+    }
+
+    function drawSubmarine(x, y, scale){
+      p.push();
+      p.translate(x, y);
+      p.scale(scale);
+
+      // 몸통
+      p.noStroke();
+      p.fill(SUB_DARK);
+      p.ellipse(0, 0, 120, 50);            // 긴 몸통
+      p.rect(20, -15, 25, 30, 8);          // 꼬리쪽 살짝 사각
+
+      // 창 세 개
+      p.fill(SUB_LIGHT);
+      p.ellipse(-25, 0, 20, 20);
+      p.ellipse(0,   0, 20, 20);
+      p.ellipse(25,  0, 20, 20);
+
+      // 위에 periscope
+      p.fill(SUB_DARK);
+      p.rect(-10, -32, 20, 20, 6);
+      p.rect(-4, -52, 8, 22, 4);
+
+      p.pop();
+    }
+
+    class Bubble {
+      constructor(x,y){
+        this.x = x;
+        this.y = y;
+        this.r = p.random(6, 16);
+        this.vy = p.random(-0.6, -1.4);
+        this.offset = p.random(1000);
+      }
+      step(){
+        this.y += this.vy;
+        this.x += Math.sin(p.frameCount*0.03 + this.offset)*0.2;
+      }
+      draw(){
+        p.noFill();
+        p.stroke(BUBBLE);
+        p.strokeWeight(2);
+        p.circle(this.x, this.y, this.r);
+      }
+      dead(){
+        return this.y < -20;
+      }
+    }
+
+    p.draw = () => {
+      // 맑은 물 배경
+      p.noStroke();
+      p.fill(WATER);
+      p.rect(0, 0, p.width, p.height);
+
+      if(animate) t += 1;
+
+      // 물결 스트라이프 3~4줄
+      const h = p.height;
+      drawWaveStripe(h*0.25, 18, 0.0);
+      drawWaveStripe(h*0.45, 18, 1.3);
+      drawWaveStripe(h*0.65, 18, 2.1);
+
+      // 잠수함들 (살짝 위아래로 둥둥)
+      const bob = animate ? Math.sin(t*0.03)*6 : 0;
+
+      drawSubmarine(p.width*0.58, h*0.38 + bob, 0.9);
+      drawSubmarine(p.width*0.35, h*0.55 - bob*0.6, 0.7);
+      drawSubmarine(p.width*0.72, h*0.68 + bob*0.4, 0.5);
+
+      // 버블 업데이트
+      for(let i=bubbles.length-1; i>=0; i--){
+        const b = bubbles[i];
+        b.step();
+        b.draw();
+        if(b.dead()) bubbles.splice(i,1);
+      }
+    };
+
+    // 클릭하면 버블 추가 (잠수함에서 나오는 것처럼)
+    p.mousePressed = () => {
+      bubbles.push(new Bubble(p.mouseX, p.mouseY));
+    };
+
+    // 드래그하면 물결 더 생기는 느낌으로 버블 많이
+    p.mouseDragged = () => {
+      bubbles.push(new Bubble(p.mouseX, p.mouseY));
+    };
+
+    // 스페이스바 : 애니메이션 on/off
+    p.keyPressed = () => {
+      if(p.key === ' ') animate = !animate;
+      if(p.keyCode === p.DELETE || p.keyCode === p.BACKSPACE) reset();
+    };
+
+    p.doubleClicked = () => reset();
+  });
+}
+
+
+    // --------- p5: Egg → Jupiter ----------
+    function createEggSketch(){
+      const SPACE = getComputedStyle(document.documentElement).getPropertyValue('--egg-bg').trim() || "#181a2a";
+      const YOLK  = getComputedStyle(document.documentElement).getPropertyValue('--yolk').trim() || "#ffd34d";
+      const SHELL = getComputedStyle(document.documentElement).getPropertyValue('--shell').trim() || "#ffffff";
+      const STAR  = getComputedStyle(document.documentElement).getPropertyValue('--starlight').trim() || "#b9c3ff";
+      const RING  = getComputedStyle(document.documentElement).getPropertyValue('--ring').trim() || "#f1f1f1";
+
+      return new p5(p=>{
+        let spin=true, t=0, stars=[], angle=0;
+
+        p.setup=()=>{
+          const holder=document.getElementById('p5-egg');
+          const W=holder.clientWidth||700, H=Math.max(420, window.innerHeight*0.6);
+          const cnv=p.createCanvas(W,H); cnv.parent(holder);
+          p.pixelDensity(1); 
+          resetScene();
+        };
+        p.windowResized=()=>{
+          if(!document.body.contains(p.canvas)) return;
+          const holder=document.getElementById('p5-egg');
+          const W=holder.clientWidth||700, H=Math.max(420, window.innerHeight*0.6);
+          p.resizeCanvas(W,H); resetScene();
+        };
+        function resetScene(){ stars.length=0; t=0; angle=0; p.background(SPACE); }
+
+        function addStar(x,y){
+          stars.push({x,y,a:255,sz:p.random(3,6)});
+        }
+
+        function eggPlanet(cx,cy,tilt){
+          p.push(); p.translate(cx,cy); p.rotate(tilt);
+          p.noStroke(); p.fill(SHELL); p.ellipse(0,0,120,160);
+          p.fill(YOLK); p.circle(0,10,40);
+          p.noFill(); p.stroke(RING); p.strokeWeight(5);
+          p.ellipse(0,0,170,40);
+          p.pop();
+        }
+
+        p.draw=()=>{
+          p.noStroke(); p.fill(SPACE+'10'); p.rect(0,0,p.width,p.height);
+
+          for(let i=stars.length-1;i>=0;i--){
+            const s=stars[i];
+            p.noStroke(); p.fill(STAR); p.circle(s.x,s.y,s.sz);
+            s.a-=0.6;
+            if(s.a<=0) stars.splice(i,1);
+          }
+
+          if(spin) angle += 0.01;
+          const tilt = angle + ((p.mouseX/p.width - 0.5) * 0.3);
+
+          eggPlanet(p.width*0.5, p.height*0.55, tilt);
+          t++;
+        };
+
+        p.mousePressed=()=>{ if(onCanvas()) addStar(p.mouseX,p.mouseY); };
+        p.doubleClicked=()=>{ resetScene(); };
+        p.keyPressed=()=>{
+          if(p.key===' ') spin=!spin;
+          if(p.keyCode===p.DELETE || p.keyCode===p.BACKSPACE){ resetScene(); }
+        };
+        function onCanvas(){
+          return p.mouseX>=0&&p.mouseX<=p.width&&p.mouseY>=0&&p.mouseY<=p.height;
+        }
+      });
+    }
+
+    // --------- p5: Potato → Moonrock ----------
+    function createPotatoSketch(){
+      const BG   = "#f7f3ea";
+      const POT  = "#c8a36b";
+      const DARK = "#8a6a3d";
+      const DUST = "#ffdd99";
+
+      return new p5(p=>{
+        let spin = true, angle = 0, dust = [];
+
+        p.setup=()=>{
+          const holder=document.getElementById('p5-potato');
+          const W=holder.clientWidth||700, H=Math.max(420, window.innerHeight*0.6);
+          const cnv=p.createCanvas(W,H); cnv.parent(holder);
+          p.pixelDensity(1);
+          reset();
+        };
+
+        function reset(){
+          dust = [];
+          angle = 0;
+          p.background(BG);
+        }
+
+        class Dust{
+          constructor(x,y){
+            this.x=x; this.y=y;
+            this.vx=p.random(-1,1);
+            this.vy=p.random(-1,1);
+            this.a=255;
+            this.s=p.random(5,10);
+          }
+          step(){ this.x+=this.vx; this.y+=this.vy; this.a-=2; }
+          draw(){
+            p.noStroke();
+            p.fill(DUST + p.hex(this.a,2));
+            p.circle(this.x,this.y,this.s);
+          }
+          dead(){ return this.a<=0; }
+        }
+
+        p.draw=()=>{
+          p.noStroke(); p.fill(BG+"15"); p.rect(0,0,p.width,p.height);
+
+          if(spin) angle += 0.01;
+
+          p.push();
+          p.translate(p.width*0.5, p.height*0.55);
+          p.rotate(angle);
+          p.noStroke(); p.fill(POT);
+          p.ellipse(0,0,140,100);
+
+          p.fill(DARK);
+          p.circle(-30,-10,10);
+          p.circle(20,15,12);
+          p.circle(-5,25,8);
+          p.pop();
+
+          dust.forEach(d=>{ d.step(); d.draw(); });
+          dust = dust.filter(d=>!d.dead());
+        };
+
+        p.mouseDragged=()=>{ dust.push(new Dust(p.mouseX,p.mouseY)); };
+        p.mousePressed=()=>{ dust.push(new Dust(p.mouseX,p.mouseY)); };
+        p.doubleClicked=()=>reset();
+        p.keyPressed=()=>{
+          if(p.key===' ') spin=!spin;
+          if(p.keyCode===p.DELETE || p.keyCode===p.BACKSPACE) reset();
+        };
+      });
+    }
+
+  // --------- p5: Sausage → Hot air balloon ----------
+function createSausageSketch(){
+  const SKY      = "#4fa9ff";   // 맑고 쨍한 파란 하늘
+  const BODY     = "#e06955";   // 풍선 바깥
+  const FILL     = "#f8c27a";   // 풍선 하이라이트
+  const BASKET   = "#c98a4e";   // 바구니
+
+  return new p5(p=>{
+    let wobble = true;
+    let t = 0;
+    let infl = 1.0;      // 전체 크기 (클릭)
+    let wide = 1.0;      // 가로로 늘어나는 정도 (드래그)
+    let clouds = [];
+
+    p.setup = () => {
+      const holder = document.getElementById('p5-sausage');
+      const W = holder.clientWidth || 700;
+      const H = Math.max(420, window.innerHeight * 0.6);
+      const cnv = p.createCanvas(W, H);
+      cnv.parent(holder);
+      p.pixelDensity(1);
+      initClouds();
+    };
+
+    p.windowResized = () => {
+      if(!document.body.contains(p.canvas)) return;
+      const holder = document.getElementById('p5-sausage');
+      const W = holder.clientWidth || 700;
+      const H = Math.max(420, window.innerHeight * 0.6);
+      p.resizeCanvas(W, H);
+      initClouds();
+    };
+
+    function initClouds(){
+      clouds = [];
+      for(let i=0;i<7;i++){
+        clouds.push({
+          x: p.random(-50, p.width+50),
+          y: p.random(40, p.height*0.7),
+          s: p.random(0.8, 1.4),
+          speed: p.random(0.3, 0.7)
+        });
+      }
+    }
+
+    function drawSky(){
+      p.noStroke();
+      p.fill(SKY);
+      p.rect(0, 0, p.width, p.height);
+    }
+
+    function drawCloud(c){
+      p.push();
+      p.translate(c.x, c.y);
+      p.noStroke();
+      p.fill(255, 255, 255, 235);
+
+      const base = 40 * c.s;
+      p.ellipse(0, 0, base*1.6, base);
+      p.ellipse(-base*0.7, 2, base, base*0.8);
+      p.ellipse(base*0.7, 4, base*0.9, base*0.7);
+      p.ellipse(-base*0.1, -base*0.3, base*1.1, base*0.8);
+
+      p.pop();
+    }
+
+    function updateClouds(){
+      for(const c of clouds){
+        c.x += c.speed;
+        if(c.x > p.width + 80){
+          c.x = -80;
+          c.y = p.random(40, p.height*0.7);
+        }
+        drawCloud(c);
+      }
+    }
+
+    function reset(){
+      infl = 1.0;
+      wide = 1.0;
+      t = 0;
+      initClouds();
+    }
+
+    p.draw = () => {
+      // 플랫 파란 하늘
+      drawSky();
+      // 떠다니는 구름
+      updateClouds();
+
+      if (wobble) t += 0.04;
+      const wiggle = wobble ? Math.sin(t) * 5 : 0;
+
+      p.push();
+      p.translate(p.width * 0.5, p.height * 0.52);
+      p.rotate(wiggle * 0.01);
+
+      const baseR = 80;
+      const rY = baseR * infl;
+      const rX = baseR * infl * wide;
+
+      // 풍선 (열기구)
+      p.noStroke();
+      p.fill(BODY);
+      p.ellipse(0, -40, rX * 1.1, rY * 1.3);
+
+      // 안쪽 하이라이트
+      p.fill(FILL);
+      p.ellipse(-10, -52, rX * 0.7, rY * 0.9);
+
+      // 윗부분 반짝임
+      p.noStroke();
+      p.fill(255, 255, 255, 80);
+      p.ellipse(-22, -65, rX * 0.35, rY * 0.25);
+
+      // 끈
+      const stringYTop = -40 + (rY * 0.65);
+      const stringYBottom = stringYTop + 42;
+
+      p.stroke("#b46a3a");
+      p.strokeWeight(2);
+      p.line(-18, stringYTop, -12, stringYBottom);
+      p.line( 18, stringYTop,  12, stringYBottom);
+
+      // 바구니
+      p.noStroke();
+      p.fill(BASKET);
+      p.rect(-18, stringYBottom, 36, 24, 6);
+
+      // 바구니 안쪽 라인
+      p.stroke("#8a572f");
+      p.strokeWeight(1.4);
+      p.line(-16, stringYBottom + 8, 16, stringYBottom + 8);
+      p.line(-16, stringYBottom + 15,16, stringYBottom + 15);
+
+      p.pop();
+    };
+
+    // 클릭 = 전체적으로 통통하게
+    p.mousePressed = () => {
+      infl += 0.08;
+      if (infl > 1.6) infl = 1.6;
+    };
+
+    // 드래그 = 가로로 길쭉하게
+    p.mouseDragged = () => {
+      wide += 0.04;
+      if (wide > 1.8) wide = 1.8;
+    };
+
+    p.doubleClicked = () => reset();
+
+    p.keyPressed = () => {
+      if (p.key === ' ') wobble = !wobble;  // 흔들림 on/off
+      if (p.keyCode === p.DELETE || p.keyCode === p.BACKSPACE) reset();
+    };
+  });
+}
+
+
+  </script>
+</body>
+</html>
