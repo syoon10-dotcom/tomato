@@ -64,7 +64,7 @@
       justify-content:space-between;
       position: relative
     }
-   /* 제목 기본 스타일 */
+  
 .brand {
   font-family: "Absans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 1.2 rem;
@@ -72,7 +72,7 @@
   font-weight: 400;
 }
 
-/* 글자 하나씩 삐뚤삐뚤 */
+
 .wobblyTitle {
   display: inline-block;
   position: relative;
@@ -84,10 +84,10 @@
 }
 
 .wobblyTitle .space {
-  width: 1.4em; /* imagination / garden 사이 간격 */
+  width: 1.4em; 
 }
 
-/* imagination */
+
 .wobblyTitle span:nth-child(1)  { transform: translateY(-2px) rotate(-4deg); }
 .wobblyTitle span:nth-child(2)  { transform: translateY(3px)  rotate(2deg); }
 .wobblyTitle span:nth-child(3)  { transform: translateY(0px)  rotate(-3deg); }
@@ -100,9 +100,9 @@
 .wobblyTitle span:nth-child(10) { transform: translateY(-2px) rotate(1deg); }
 .wobblyTitle span:nth-child(11) { transform: translateY(3px)  rotate(-3deg); }
 
-/* 12번째는 .space라서 스킵 */
 
-/* garden */
+
+
 .wobblyTitle span:nth-child(13) { transform: translateY(-3px) rotate(-4deg); }
 .wobblyTitle span:nth-child(14) { transform: translateY(2px)  rotate(2deg); }
 .wobblyTitle span:nth-child(15) { transform: translateY(-1px) rotate(-2deg); }
@@ -111,20 +111,20 @@
 .wobblyTitle span:nth-child(18) { transform: translateY(2px)  rotate(2deg); }
 
   
-   /* 오른쪽 위에 가로로 눕힌 탭들 */
+
 .nav {
-  position: absolute;     /* header 안에서 오른쪽 위에 붙이기 */
+  position: absolute;    
   top: 20px;
   right: 40px;
 
   display: flex;
-  flex-direction: row;    /* 세로 → 가로 */
+  flex-direction: row;    
   gap: 8px;
-  flex-wrap: wrap;        /* 화면 좁아지면 두 줄로 자연스럽게 */
+  flex-wrap: wrap;        
   z-index: 20;
 }
 
-/* chip 기본 margin 있으면 제거 */
+
 .nav .chip {
   margin: 0;
 }
@@ -141,17 +141,17 @@
       color:var(--paper);
     }
 
-    /* ---------- HOME ---------- */
+ 
     main {
   max-width: 1080px;
-  margin: 0 auto 80px;   /* 위쪽 여백을 0으로 */
-  padding-top: 40px;     /* 제목과 내용 사이 간격 (너무 멀면 24px로 줄여도 됨) */
+  margin: 0 auto 80px;   
+  padding-top: 40px; 
 }
 
 
-/* 홈 인트로 블록이 따로 있으면 */
+
 .homeIntro {
-  margin-top: 12px;      /* 너무 크면 12~20px 정도로 줄이기 */
+  margin-top: 12px;      
 }
 
 
@@ -231,7 +231,7 @@
       height:auto;
     }
 
-    /* ---------- SECTION LAYOUT ---------- */
+   
     .section{
       display:none; 
       padding:10px 20px 80px;
@@ -298,21 +298,21 @@
     }
 
     footer {
-  position: static;      /* 고정 없애기 */
-  margin: 40px auto 24px;/* 카드 아래에 여유를 두고 배치 */
+  position: static;     
+  margin: 40px auto 24px;
   padding: 4px 24px;
   font-size: 0.75rem;
   max-width: 1080px;
 }
 
 
-    /* theme backgrounds per section */
+
     #tomatoSection .canvasWrap{ background:#050816; }
     #carrotSection .canvasWrap{ background:var(--carrot-bg); }
     #peaSection    .canvasWrap{ background:var(--pea-bg); }
     #eggSection    .canvasWrap{ background:var(--egg-bg); color:white; }
 
-    /* egg panel 글씨 보이게 */
+   
     #eggSection .panel{
       border-color:#e9ecff;
       color:white;
@@ -322,7 +322,7 @@
       color:#d7dbff;
     }
 
-    /* ====== WORD MASK (only the noun) ====== */
+   
     .wordRow{
       display:flex; 
       align-items:center; 
@@ -372,7 +372,7 @@
       border-color:#2b2100;
     }
 
-    /* pop animation for revealed word */
+   
     @keyframes popIn{
       from{opacity:0; transform:translateY(4px)}
       to{opacity:1; transform:translateY(0)}
@@ -416,12 +416,12 @@
     </nav>
   </header>
 
-  <!-- HOME -->
+
   <main id="home">
     <p class="lede">Welcome to the Imagination Garden</p>
     <p class="sublede">Here, foods become anything but themselves. Choose a seed to begin.</p>
     <section class="introGrid">
-      <!-- Tomato -->
+   
       <div class="seed s1" id="open-tomato">
         <span class="badge">click</span>
         <h3>🍅 Tomato</h3>
@@ -429,35 +429,35 @@
       </div>
       
 
-      <!-- Carrot -->
+
       <div class="seed s2" id="open-carrot">
         <span class="badge">click</span>
         <h3>🥕 Carrot</h3>
         <img src="./images/carrot.png" alt="Tomato seed illustration">
       </div>
 
-      <!-- Pea -->
+  
       <div class="seed s3" id="open-pea">
         <span class="badge">click</span>
         <h3>🫛 Pea</h3>
         <img src="./images/pea.png" alt="Tomato seed illustration">
       </div>
 
-      <!-- Egg -->
+
       <div class="seed s4" id="open-egg">
         <span class="badge">click</span>
         <h3>🥚 Egg</h3>
         <img src="./images/egg2.png" alt="Tomato seed illustration">
       </div>
 
-      <!-- Potato -->
+
       <div class="seed s1" id="open-potato">
         <span class="badge">click</span>
         <h3>🥔 Potato</h3>
         <img src="./images/potato.png" alt="Tomato seed illustration">
       </div>
 
-      <!-- Sausage -->
+
       <div class="seed s2" id="open-sausage">
         <span class="badge">click</span>
         <h3>🌭 Sausage</h3>
@@ -466,7 +466,7 @@
     </section>
   </main>
 
-  <!-- TOMATO SECTION -->
+
   <section id="tomatoSection" class="section">
     <div class="panel">
       <h2>🍅 Tomato Translator</h2>
@@ -487,7 +487,7 @@
     </div>
   </section>
 
-  <!-- CARROT SECTION -->
+
   <section id="carrotSection" class="section">
     <div class="panel">
       <h2>🥕 Carrot Translator</h2>
@@ -508,7 +508,7 @@
     </div>
   </section>
 
-  <!-- PEA SECTION -->
+
   <section id="peaSection" class="section">
     <div class="panel">
       <h2>🫛 Pea Translator</h2>
@@ -529,7 +529,7 @@
     </div>
   </section>
 
-  <!-- EGG SECTION -->
+
   <section id="eggSection" class="section">
     <div class="panel">
       <h2>🥚 Egg Translator</h2>
@@ -550,7 +550,7 @@
     </div>
   </section>
 
-  <!-- POTATO SECTION -->
+
   <section id="potatoSection" class="section">
     <div class="panel">
       <h2>🥔 Potato Translator</h2>
@@ -571,7 +571,7 @@
     </div>
   </section>
 
-  <!-- SAUSAGE SECTION -->
+
   <section id="sausageSection" class="section">
     <div class="panel">
       <h2>🌭 Sausage Translator</h2>
@@ -596,11 +596,11 @@
 
   <footer>© Imagination Garden — Insired by a childrens' book, "I will Never not Ever eat a Tomato".</footer>
 
-  <!-- p5.js -->
+
   <script src="https://cdn.jsdelivr.net/npm/p5@1.9.2/lib/p5.min.js"></script>
 
   <script>
-     // --------- Simple router ----------
+
      const homeView = document.getElementById('home');
 
 const views = {
@@ -635,14 +635,14 @@ let sketches = {
   tomato:null, carrot:null, pea:null, egg:null, potato:null, sausage:null
 };
 
-// ★ 지금 어느 탭이 active 인지 표시
+
 function setActiveNav(activeKey) {
   Object.entries(nav).forEach(([key, el]) => {
     if (!el) return;
     if (key === activeKey) {
-      el.classList.add('primary');     // 검정 배경
+      el.classList.add('primary');   
     } else {
-      el.classList.remove('primary');  // 일반 칩
+      el.classList.remove('primary'); 
     }
   });
 }
@@ -651,7 +651,7 @@ function showHome(){
   homeView.style.display = 'block';
   Object.values(views).forEach(v => v.classList.remove('active'));
 
-  // 홈으로 돌아오면 Home 탭만 활성화
+ 
   setActiveNav('home');
 }
 
@@ -662,13 +662,13 @@ function showSection(key){
     v.classList.toggle('active', k === key);
   });
 
-  // 단어 리셋
+
   resetWords(key);
 
-  // 탭 하이라이트
+  
   setActiveNav(key);
 
-  // p5 스케치 최초 1번만 생성
+
   if(!sketches[key]){
     const map = {
       tomato:  createTomatoSketch,
@@ -684,7 +684,7 @@ function showSection(key){
   }
 }
 
-// 네비게이션 클릭
+
 if (nav.home) {
   nav.home.addEventListener('click', showHome);
 }
@@ -694,16 +694,16 @@ if (nav.home) {
     nav[k].addEventListener('click', () => showSection(k));
   }
   if (open[k]) {
-    // 홈 화면 카드 클릭도 똑같이 섹션으로 이동
+   
     open[k].addEventListener('click', () => showSection(k));
   }
 });
 
-// 처음에 홈 화면 보이기 + Home 탭 활성화
+
 showHome();
 
 
-    // ===== Word reveal logic =====
+
     const rocketMask   = document.getElementById('rocketMask'),
           rocketWord   = document.getElementById('rocketWord'),
           btnRocket    = document.getElementById('btnRocket');
@@ -794,9 +794,9 @@ showHome();
       });
     }
 
- // --------- p5: Tomato → Rocket (space background) ----------
+
 function createTomatoSketch(){
-  const SPACE = "#050816";  // 진한 우주색
+  const SPACE = "#050816"; 
   const RED   = getComputedStyle(document.documentElement).getPropertyValue('--tomato-red').trim() || "#e34a3d";
   const GREEN = getComputedStyle(document.documentElement).getPropertyValue('--leaf').trim() || "#1fb66a";
   const INK   = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim() || "#0f1020";
@@ -830,7 +830,7 @@ function createTomatoSketch(){
       rocketY = p.height * 0.58;
       sparks = [];
       stars = [];
-      // 랜덤 별들 만들기
+   
       const count = 80;
       for(let i=0;i<count;i++){
         stars.push({
@@ -891,24 +891,24 @@ function createTomatoSketch(){
     }
 
     p.draw = () => {
-      // 우주 배경 다시 깔기
+      
       p.noStroke();
       p.fill(SPACE);
       p.rect(0,0,p.width,p.height);
 
-      // 별들
+ 
       drawStars();
 
       const cx = p.width * 0.5;
       const cy = rocketY;
 
-      // 토마토 조각들 → 로켓 몸통
+  
       tomatoPiece(cx-38, cy,   1,   -0.4);
       tomatoPiece(cx+34, cy+2, 0.9,  0.35);
       tomatoPiece(cx-6,  cy-26,0.8,  0.15);
       tomatoPiece(cx-2,  cy+30,0.75, -0.15);
 
-      // 위쪽 토마토 + 잎 = 로켓 윗부분
+ 
       p.noStroke(); 
       p.fill(RED); 
       p.ellipse(cx, cy-54, 40, 50);
@@ -916,20 +916,19 @@ function createTomatoSketch(){
       leafFin(cx-22, cy+36, 0.9);
       leafFin(cx+24, cy+36, 0.9);
 
-      // 작은 창
       p.stroke(INK); 
       p.strokeWeight(2); 
       p.noFill();
       p.circle(cx+12, cy-20, 16);
 
-      // 발사 중이면 위로 올라가고 불꽃 나옴
+   
       if(launching){
         rocketY -= 1.6;
         flame(cx, cy+56, 26);
         if(rocketY < -100) rocketY = p.height+100;
       }
 
-      // 불꽃 파티클
+   
       for(let i=sparks.length-1;i>=0;i--){
         const s=sparks[i]; 
         s.step(); 
@@ -959,7 +958,7 @@ function createTomatoSketch(){
     };
 
     p.keyPressed = () => {
-      if(p.key === ' '){           // 스페이스: 발사/정지
+      if(p.key === ' '){          
         launching = !launching;
       }
       if(p.keyCode === p.DELETE || p.keyCode === p.BACKSPACE){
@@ -977,7 +976,7 @@ function createTomatoSketch(){
 }
 
 
-    // --------- p5: Carrot → Trumpetfish ----------
+   
     function createCarrotSketch(){
       const SEA   = getComputedStyle(document.documentElement).getPropertyValue('--carrot-bg').trim() || "#e7f6ff";
       const ORAN  = getComputedStyle(document.documentElement).getPropertyValue('--carrot-orange').trim() || "#f58a2e";
@@ -1079,13 +1078,13 @@ function createTomatoSketch(){
       });
     }
 
-// --------- p5: Pea → Submarine (vibrant waves) ----------
+
 function createPeaSketch(){
-  const WATER     = "#46c3ff";   // 쨍한 물 파랑
-  const WAVE      = "#7fdcff";   // 밝은 물결 스트라이프
-  const SUB_DARK  = "#216b2f";   // 잠수함 몸통
-  const SUB_LIGHT = "#2fa640";   // 창 부분
-  const BUBBLE    = "#ffffffaa"; // 거품
+  const WATER     = "#46c3ff";   
+  const WAVE      = "#7fdcff";   
+  const SUB_DARK  = "#216b2f";   
+  const SUB_LIGHT = "#2fa640";   
+  const BUBBLE    = "#ffffffaa"; 
 
   return new p5(p=>{
     let t = 0;
@@ -1116,12 +1115,12 @@ function createPeaSketch(){
       bubbles = [];
     }
 
-    // 물결 하나 그리는 함수
+   
     function drawWaveStripe(yBase, amp, phase){
       p.noStroke();
       p.fill(WAVE);
       p.beginShape();
-      p.vertex(0, p.height);              // 아래쪽 닫기용
+      p.vertex(0, p.height);            
       p.vertex(0, yBase);
 
       const step = 16;
@@ -1141,19 +1140,19 @@ function createPeaSketch(){
       p.translate(x, y);
       p.scale(scale);
 
-      // 몸통
+     
       p.noStroke();
       p.fill(SUB_DARK);
-      p.ellipse(0, 0, 120, 50);            // 긴 몸통
-      p.rect(20, -15, 25, 30, 8);          // 꼬리쪽 살짝 사각
+      p.ellipse(0, 0, 120, 50);     
+      p.rect(20, -15, 25, 30, 8);         
 
-      // 창 세 개
+
       p.fill(SUB_LIGHT);
       p.ellipse(-25, 0, 20, 20);
       p.ellipse(0,   0, 20, 20);
       p.ellipse(25,  0, 20, 20);
 
-      // 위에 periscope
+
       p.fill(SUB_DARK);
       p.rect(-10, -32, 20, 20, 6);
       p.rect(-4, -52, 8, 22, 4);
@@ -1185,27 +1184,27 @@ function createPeaSketch(){
     }
 
     p.draw = () => {
-      // 맑은 물 배경
+    
       p.noStroke();
       p.fill(WATER);
       p.rect(0, 0, p.width, p.height);
 
       if(animate) t += 1;
 
-      // 물결 스트라이프 3~4줄
+    
       const h = p.height;
       drawWaveStripe(h*0.25, 18, 0.0);
       drawWaveStripe(h*0.45, 18, 1.3);
       drawWaveStripe(h*0.65, 18, 2.1);
 
-      // 잠수함들 (살짝 위아래로 둥둥)
+     
       const bob = animate ? Math.sin(t*0.03)*6 : 0;
 
       drawSubmarine(p.width*0.58, h*0.38 + bob, 0.9);
       drawSubmarine(p.width*0.35, h*0.55 - bob*0.6, 0.7);
       drawSubmarine(p.width*0.72, h*0.68 + bob*0.4, 0.5);
 
-      // 버블 업데이트
+   
       for(let i=bubbles.length-1; i>=0; i--){
         const b = bubbles[i];
         b.step();
@@ -1214,17 +1213,17 @@ function createPeaSketch(){
       }
     };
 
-    // 클릭하면 버블 추가 (잠수함에서 나오는 것처럼)
+
     p.mousePressed = () => {
       bubbles.push(new Bubble(p.mouseX, p.mouseY));
     };
 
-    // 드래그하면 물결 더 생기는 느낌으로 버블 많이
+  
     p.mouseDragged = () => {
       bubbles.push(new Bubble(p.mouseX, p.mouseY));
     };
 
-    // 스페이스바 : 애니메이션 on/off
+
     p.keyPressed = () => {
       if(p.key === ' ') animate = !animate;
       if(p.keyCode === p.DELETE || p.keyCode === p.BACKSPACE) reset();
@@ -1235,7 +1234,7 @@ function createPeaSketch(){
 }
 
 
-    // --------- p5: Egg → Jupiter ----------
+    
     function createEggSketch(){
       const SPACE = getComputedStyle(document.documentElement).getPropertyValue('--egg-bg').trim() || "#181a2a";
       const YOLK  = getComputedStyle(document.documentElement).getPropertyValue('--yolk').trim() || "#ffd34d";
@@ -1303,7 +1302,7 @@ function createPeaSketch(){
       });
     }
 
-    // --------- p5: Potato → Moonrock ----------
+   
     function createPotatoSketch(){
       const BG   = "#f7f3ea";
       const POT  = "#c8a36b";
@@ -1375,18 +1374,18 @@ function createPeaSketch(){
       });
     }
 
-  // --------- p5: Sausage → Hot air balloon ----------
+
 function createSausageSketch(){
-  const SKY      = "#4fa9ff";   // 맑고 쨍한 파란 하늘
-  const BODY     = "#e06955";   // 풍선 바깥
-  const FILL     = "#f8c27a";   // 풍선 하이라이트
-  const BASKET   = "#c98a4e";   // 바구니
+  const SKY      = "#4fa9ff";   
+  const BODY     = "#e06955";   
+  const FILL     = "#f8c27a";   
+  const BASKET   = "#c98a4e";   
 
   return new p5(p=>{
     let wobble = true;
     let t = 0;
-    let infl = 1.0;      // 전체 크기 (클릭)
-    let wide = 1.0;      // 가로로 늘어나는 정도 (드래그)
+    let infl = 1.0;     
+    let wide = 1.0;     
     let clouds = [];
 
     p.setup = () => {
@@ -1460,9 +1459,9 @@ function createSausageSketch(){
     }
 
     p.draw = () => {
-      // 플랫 파란 하늘
+
       drawSky();
-      // 떠다니는 구름
+   
       updateClouds();
 
       if (wobble) t += 0.04;
@@ -1476,21 +1475,21 @@ function createSausageSketch(){
       const rY = baseR * infl;
       const rX = baseR * infl * wide;
 
-      // 풍선 (열기구)
+   
       p.noStroke();
       p.fill(BODY);
       p.ellipse(0, -40, rX * 1.1, rY * 1.3);
 
-      // 안쪽 하이라이트
+  
       p.fill(FILL);
       p.ellipse(-10, -52, rX * 0.7, rY * 0.9);
 
-      // 윗부분 반짝임
+
       p.noStroke();
       p.fill(255, 255, 255, 80);
       p.ellipse(-22, -65, rX * 0.35, rY * 0.25);
 
-      // 끈
+    
       const stringYTop = -40 + (rY * 0.65);
       const stringYBottom = stringYTop + 42;
 
@@ -1499,12 +1498,12 @@ function createSausageSketch(){
       p.line(-18, stringYTop, -12, stringYBottom);
       p.line( 18, stringYTop,  12, stringYBottom);
 
-      // 바구니
+     
       p.noStroke();
       p.fill(BASKET);
       p.rect(-18, stringYBottom, 36, 24, 6);
 
-      // 바구니 안쪽 라인
+      
       p.stroke("#8a572f");
       p.strokeWeight(1.4);
       p.line(-16, stringYBottom + 8, 16, stringYBottom + 8);
@@ -1513,13 +1512,13 @@ function createSausageSketch(){
       p.pop();
     };
 
-    // 클릭 = 전체적으로 통통하게
+  
     p.mousePressed = () => {
       infl += 0.08;
       if (infl > 1.6) infl = 1.6;
     };
 
-    // 드래그 = 가로로 길쭉하게
+
     p.mouseDragged = () => {
       wide += 0.04;
       if (wide > 1.8) wide = 1.8;
@@ -1528,7 +1527,7 @@ function createSausageSketch(){
     p.doubleClicked = () => reset();
 
     p.keyPressed = () => {
-      if (p.key === ' ') wobble = !wobble;  // 흔들림 on/off
+      if (p.key === ' ') wobble = !wobble; 
       if (p.keyCode === p.DELETE || p.keyCode === p.BACKSPACE) reset();
     };
   });
